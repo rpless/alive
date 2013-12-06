@@ -32,10 +32,12 @@ Handlebars.registerHelper('statusStyle', function(status) {
 });
 	
 exports.launchAliveChecker = function(sites, options) {
-    var status = {};
+    var status = {},
+        rule = new schedule.RecurrenceRule();
+    rule.minute = 2;
     helpers.updateStatus(sites, status);
 	
-    schedule.scheduleJob('0 0/5 * * * ?', function() {
+    schedule.scheduleJob(rule, function() {
         helpers.updateStatus(sites, status);
     });
 	

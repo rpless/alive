@@ -1,9 +1,11 @@
 {
 	"name": "alive",
 	"version": "0.0.1",
+	"main": "alive.js",
 	"dependencies": {
 		"underscore": "1.5.2",
 		"node-schedule": "0.1.13",
-		"handlebars": "1.1.2"
+		"handlebars": "1.1.2",
+		"express": "3.4.6"
 	}
 }

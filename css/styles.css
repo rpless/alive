@@ -1,0 +1,20 @@
+div.bad {
+	color: red;
+	float: left;
+	padding: 1.2em;
+}
+
+div.good {
+	color: green;
+	float: left;
+	padding: 1.2em;
+}
+
+div.code {
+	padding: 1.2em;
+	float: left;
+}
+
+div.entry {
+	background-color: red;
+}

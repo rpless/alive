@@ -10,9 +10,15 @@ var fs = require('fs'),
 var helpers = {
     template: Handlebars.compile(fs.readFileSync(templateFile).toString()),
     updateStatus: function(sites, status) {
+	var timeStamp = new Date();
+	console.log('Fired at: ' + timeStamp.getHours() + ':' + timeStamp.getMinutes());
         _.each(sites, function(site) {
             var request = http.get(site, function(response) {
-                status[site] = response.statusCode;
+		if (response.headers.location && response.headers.location.match(/opendns/g)) {
+		    status[site] = 400;
+		} else {
+                    status[site] = response.statusCode;
+		}
             });
             request.on('error', function(err) {
                 status[site] = err.statusCode;
@@ -29,7 +35,7 @@ exports.launchAliveChecker = function(sites, options) {
     var status = {};
     helpers.updateStatus(sites, status);
 	
-    schedule.scheduleJob('30 * * * *', function() {
+    schedule.scheduleJob('0 0/5 * * * ?', function() {
         helpers.updateStatus(sites, status);
     });
 	

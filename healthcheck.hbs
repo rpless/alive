@@ -1,13 +1,15 @@
 <html>
-	<head>
-		<link rel="stylesheet" type="text/css" href="/css/styles.css"/>
-	</head>
-	<body>
-		{{#each this}}
-		<div class="entry">
-			<div class="{{statusStyle this}}">{{@key}}</div>
-			<div class="code">{{this}}</div>
-		</div>
-		{{/each}}
-	</body>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css"/>
+  </head>
+  <body>
+    <div>
+      {{#each this}}
+      <div class="entry">
+	<div class="{{statusStyle this}}">{{@key}}</div>
+	<div class="code">{{this}}</div>
+      </div>
+      {{/each}}
+    </div>
+  </body>
 </html>

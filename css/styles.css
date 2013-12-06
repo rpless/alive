@@ -1,20 +1,17 @@
 div.bad {
-	color: red;
-	float: left;
-	padding: 1.2em;
+    color: red;
+    display: inline-block;
 }
 
 div.good {
-	color: green;
-	float: left;
-	padding: 1.2em;
+   color: green;
+   display: inline-block;
 }
 
 div.code {
-	padding: 1.2em;
-	float: left;
+    display: inline-block;
 }
 
 div.entry {
-	background-color: red;
+    padding: 1.2em;
 }

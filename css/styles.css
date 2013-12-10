@@ -1,17 +1,17 @@
 div.bad {
-    color: red;
-    display: inline-block;
+  color: red;
+  display: inline-block;
 }
 
 div.good {
-   color: green;
-   display: inline-block;
+  color: green;
+  display: inline-block;
 }
 
 div.code {
-    display: inline-block;
+  display: inline-block;
 }
 
 div.entry {
-    padding: 1.2em;
+  padding: 1.2em;
 }

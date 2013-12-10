@@ -9,15 +9,13 @@ var fs = require('fs'),
 	
 var helpers = {
     template: Handlebars.compile(fs.readFileSync(templateFile).toString()),
-    updateStatus: function(sites, status) {
-	var timeStamp = new Date();
-	console.log('Fired at: ' + timeStamp.getHours() + ':' + timeStamp.getMinutes());
+    updateStatus: function(sites, status, filters) {
+        var timeStamp = new Date();
         _.each(sites, function(site) {
             var request = http.get(site, function(response) {
-                if (response.headers.location && response.headers.location.match(/opendns/g)) {
-                    status[site] = 400;
-                } else {
-                    status[site] = response.statusCode;
+                if (filters) {
+                    var shouldFilter = _.reduce(filters, function(memo, filter) { return memo && filter(response.headers); }, true);
+                    status[site] = shouldFilter ? response.statusCode : 400;
                 }
             });
             request.on('error', function(err) {
@@ -31,14 +29,17 @@ Handlebars.registerHelper('statusStyle', function(status) {
     return (status >= 400) ? 'bad' : 'good';
 });
 	
+/**
+ * [Listof String] [Optional Object] -> Void
+ */
 exports.launchAliveChecker = function(sites, options) {
     var status = {},
         rule = new schedule.RecurrenceRule();
     rule.minute = 30;
-    helpers.updateStatus(sites, status);
+    helpers.updateStatus(sites, status, options.filters);
 	
     schedule.scheduleJob(rule, function() {
-        helpers.updateStatus(sites, status);
+        helpers.updateStatus(sites, status, options.filters);
     });
 	
     app.use('/css', express.static(__dirname +  '/css'));

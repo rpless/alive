@@ -6,8 +6,8 @@
     <div>
       {{#each this}}
       <div class="entry">
-	<div class="{{statusStyle this}}">{{@key}}</div>
-	<div class="code">{{this}}</div>
+	    <div class="{{statusStyle this}}"><a href="{{@key}}">{{@key}}</a></div>
+	    <div class="code">{{this}}</div>
       </div>
       {{/each}}
     </div>

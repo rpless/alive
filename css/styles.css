@@ -1,11 +1,27 @@
 div.bad {
-  color: red;
   display: inline-block;
 }
 
+div.bad a {
+  color: red;
+  text-decoration: none;
+}
+
+div.bad a:hover {
+  text-decoration: underline;
+}
+
 div.good {
-  color: green;
   display: inline-block;
+}
+
+div.good a {
+  color: green;
+  text-decoration: none;
+}
+
+div.good a:hover {
+  text-decoration: underline;
 }
 
 div.code {
@@ -13,5 +29,5 @@ div.code {
 }
 
 div.entry {
-  padding: 1.2em;
+  padding: 0.6em;
 }

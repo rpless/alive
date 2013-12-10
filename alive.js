@@ -34,13 +34,12 @@ Handlebars.registerHelper('statusStyle', function(status) {
  */
 exports.launchAliveChecker = function(sites, options) {
     var status = {},
-        rule = new schedule.RecurrenceRule();
+        rule = new schedule.RecurrenceRule(),
+        updater = _.partial(helpers.updateStatus, sites, status, options.filters);
     rule.minute = options.minute;
-    helpers.updateStatus(sites, status, options.filters);
+    updater();
 	
-    schedule.scheduleJob(rule, function() {
-        helpers.updateStatus(sites, status, options.filters);
-    });
+    schedule.scheduleJob(rule, function() { updater(); });
 	
     app.use('/css', express.static(__dirname +  '/css'));
 	

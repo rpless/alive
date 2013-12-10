@@ -35,7 +35,7 @@ Handlebars.registerHelper('statusStyle', function(status) {
 exports.launchAliveChecker = function(sites, options) {
     var status = {},
         rule = new schedule.RecurrenceRule();
-    rule.minute = 30;
+    rule.minute = options.minute;
     helpers.updateStatus(sites, status, options.filters);
 	
     schedule.scheduleJob(rule, function() {

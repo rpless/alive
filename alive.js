@@ -19,14 +19,14 @@ var helpers = {
                 }
             });
             request.on('error', function(err) {
-                status[site] = err.statusCode;
+                status[site] = 'Unreachable';
             });
         });
     }
 };
 
 Handlebars.registerHelper('statusStyle', function(status) {
-    return (status >= 400) ? 'bad' : 'good';
+    return (typeof status === 'string' || status >= 400) ? 'bad' : 'good';
 });
 	
 /**
@@ -37,6 +37,7 @@ exports.launchAliveChecker = function(sites, options) {
         rule = new schedule.RecurrenceRule(),
         updater = _.partial(helpers.updateStatus, sites, status, options.filters);
     rule.minute = options.minute;
+    _.each(sites, function(site) { status[site] = 'Unknown'; });
     updater();
 	
     schedule.scheduleJob(rule, function() { updater(); });
